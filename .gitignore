@@ -1,0 +1,22 @@
+﻿# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Dependencies
+node_modules/
+
+# Env / logs
+.env
+.env.*
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+build/
