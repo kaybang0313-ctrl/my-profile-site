@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>방기환 - 포트폴리오</title>
 
+  <!-- 깜빡임 방지: 렌더링 전에 테마 적용 -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('darkMode');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'true' || (saved === null && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -14,215 +28,234 @@
         extend: {
           fontFamily: {
             sans: ['"Pretendard"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            paper: 'rgb(var(--paper) / <alpha-value>)',
+            surface: 'rgb(var(--surface) / <alpha-value>)',
+            ink: 'rgb(var(--ink) / <alpha-value>)',
+            muted: 'rgb(var(--muted) / <alpha-value>)',
+            line: 'rgb(var(--line) / <alpha-value>)',
+            accent: 'rgb(var(--accent) / <alpha-value>)',
           },
         },
       },
     }
   </script>
 
-  <!-- Pretendard 폰트 -->
+  <!-- 폰트: Pretendard + JetBrains Mono -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 
   <!-- 커스텀 스타일 -->
   <link rel="stylesheet" href="./style.css">
 </head>
-<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
+<body class="bg-paper text-ink antialiased">
 
   <!-- Navbar -->
-  <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <nav class="fixed top-0 inset-x-0 z-50 bg-paper/80 backdrop-blur-md border-b border-line">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- 로고 -->
-        <div class="flex-shrink-0">
-          <a href="#home" class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-400 dark:to-blue-400 bg-clip-text text-transparent">
-            기환
-          </a>
-        </div>
+        <a href="#home" class="flex items-baseline gap-2">
+          <span class="text-[15px] font-semibold tracking-tight">방기환</span>
+          <span class="font-mono text-[11px] text-muted uppercase tracking-widest">Portfolio</span>
+        </a>
 
         <!-- 데스크톱 메뉴 -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#about" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">소개</a>
-          <a href="#skills" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">기술</a>
-          <a href="#projects" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">프로젝트</a>
-          <a href="#contact" class="nav-link hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">연락처</a>
+        <div class="hidden md:flex items-center gap-8 text-sm">
+          <a href="#about" class="nav-link"><span class="nav-num">01</span>소개</a>
+          <a href="#skills" class="nav-link"><span class="nav-num">02</span>기술</a>
+          <a href="#projects" class="nav-link"><span class="nav-num">03</span>프로젝트</a>
+          <a href="#contact" class="nav-link"><span class="nav-num">04</span>연락처</a>
         </div>
 
         <!-- 다크모드 토글 + 모바일 메뉴 -->
-        <div class="flex items-center gap-4">
-          <button id="darkModeToggle" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <svg id="sunIcon" class="w-5 h-5 text-yellow-500 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zM4.22 4.22a1 1 0 011.415 0l1.414 1.414a1 1 0 11-1.415 1.415L4.22 5.635a1 1 0 010-1.415zm11.313 1.414a1 1 0 011.414-1.415l1.414 1.415a1 1 0 11-1.414 1.415l-1.414-1.415zM4 10a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zm12 0a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zM4.22 15.78a1 1 0 011.414 0l1.414 1.415a1 1 0 11-1.415 1.414L4.22 17.194a1 1 0 010-1.414zm11.313-1.414a1 1 0 011.415 1.414l-1.415 1.415a1 1 0 11-1.414-1.415l1.414-1.414zM10 18a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1z"/></svg>
-            <svg id="moonIcon" class="w-5 h-5 text-slate-700 dark:text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        <div class="flex items-center gap-1">
+          <button id="darkModeToggle" class="icon-btn" aria-label="테마 전환">
+            <svg id="sunIcon" class="w-[18px] h-[18px] hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </svg>
+            <svg id="moonIcon" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linejoin="round" d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/>
+            </svg>
           </button>
 
           <!-- 모바일 메뉴 버튼 -->
-          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <button id="mobileMenuBtn" class="icon-btn md:hidden" aria-label="메뉴 열기" aria-expanded="false">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" d="M4 8h16M4 16h16"/>
             </svg>
           </button>
         </div>
       </div>
 
       <!-- 모바일 메뉴 -->
-      <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
-        <a href="#about" class="block px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">소개</a>
-        <a href="#skills" class="block px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">기술</a>
-        <a href="#projects" class="block px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">프로젝트</a>
-        <a href="#contact" class="block px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">연락처</a>
+      <div id="mobileMenu" class="hidden md:hidden pb-4 border-t border-line">
+        <a href="#about" class="mobile-link"><span class="nav-num">01</span>소개</a>
+        <a href="#skills" class="mobile-link"><span class="nav-num">02</span>기술</a>
+        <a href="#projects" class="mobile-link"><span class="nav-num">03</span>프로젝트</a>
+        <a href="#contact" class="mobile-link"><span class="nav-num">04</span>연락처</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="home" class="pt-32 pb-20 px-4 bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950">
-    <div class="max-w-4xl mx-auto text-center">
-      <!-- 아바타 -->
-      <div class="mb-8 flex justify-center">
-        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center text-4xl font-bold text-white shadow-lg">
-          방
-        </div>
-      </div>
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-[92vh] flex flex-col justify-end pt-32 pb-12 px-5 sm:px-8">
+      <div class="max-w-6xl w-full mx-auto">
+        <p class="reveal font-mono text-xs text-muted uppercase tracking-widest mb-8 flex items-center gap-3">
+          <span class="status-dot"></span>
+          Currently learning — Claude &amp; Data
+        </p>
 
-      <h1 class="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-400 dark:to-blue-400 bg-clip-text text-transparent">
-        방기환
-      </h1>
+        <h1 class="reveal text-[clamp(2.6rem,8.5vw,6.75rem)] font-semibold leading-[1.04] tracking-[-0.035em] mb-10">
+          <span class="text-accent">데이터와 AI</span>를<br>
+          배우고 있습니다.
+        </h1>
 
-      <p class="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 mb-4">
-        정치외교학 → 데이터테크놀로지
-      </p>
-
-      <p class="text-lg text-slate-500 dark:text-slate-400 mb-10 max-w-2xl mx-auto">
-        열심히 Claude를 공부하고 있는 대학생입니다. 웹 개발과 데이터 기술에 관심 있습니다.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#projects" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl">
-          프로젝트 보기
-        </a>
-        <a href="#contact" class="px-8 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-50 rounded-lg font-semibold transition-colors">
-          연락하기
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-20 px-4 bg-white dark:bg-slate-900">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-center">소개</h2>
-
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <p class="text-lg text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-            안녕하세요! 저는 정치외교학을 전공했던 학생이지만, 기술과 데이터에 매력을 느껴 현재는 데이터테크놀로지를 공부하고 있습니다.
+        <div class="reveal grid md:grid-cols-12 gap-8 items-end">
+          <p class="md:col-span-6 text-lg sm:text-xl text-muted leading-relaxed">
+            열심히 Claude를 공부하고 있는 대학생 <span class="text-ink font-medium">방기환</span>입니다.
+            웹 개발과 데이터 기술에 관심 있습니다.
           </p>
-          <p class="text-lg text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-            최근에는 Claude AI와 프로그래밍에 깊은 관심을 가지고 열심히 학습 중입니다. 새로운 기술을 배우고 실제 프로젝트에 적용하는 과정을 즐깁니다.
-          </p>
-          <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            웹 개발부터 데이터 분석까지 다양한 분야에서 성장하고 있습니다.
-          </p>
-        </div>
-
-        <div class="space-y-6">
-          <div class="p-6 bg-slate-50 dark:bg-slate-800 rounded-lg">
-            <h3 class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 mb-2">이름</h3>
-            <p class="text-xl font-semibold text-slate-900 dark:text-slate-50">방기환</p>
-          </div>
-          <div class="p-6 bg-slate-50 dark:bg-slate-800 rounded-lg">
-            <h3 class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 mb-2">직업</h3>
-            <p class="text-xl font-semibold text-slate-900 dark:text-slate-50">대학생</p>
-          </div>
-          <div class="p-6 bg-slate-50 dark:bg-slate-800 rounded-lg">
-            <h3 class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 mb-2">주요 관심사</h3>
-            <p class="text-xl font-semibold text-slate-900 dark:text-slate-50">웹 개발, AI, 데이터</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="skills" class="py-20 px-4 bg-slate-50 dark:bg-slate-800">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-center">기술 스택</h2>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="p-8 bg-white dark:bg-slate-900 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-          <div class="text-5xl mb-4">🐍</div>
-          <h3 class="text-2xl font-bold mb-3 text-slate-900 dark:text-slate-50">Python</h3>
-          <p class="text-slate-600 dark:text-slate-300 mb-4">
-            데이터 분석과 자동화에 활용하는 언어입니다.
-          </p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full text-sm font-medium">학습 중</span>
+          <div class="md:col-span-6 flex flex-wrap gap-3 md:justify-end">
+            <a href="#projects" class="btn-primary">
+              프로젝트 보기
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+            <a href="#contact" class="btn-ghost">연락하기</a>
           </div>
         </div>
 
-        <div class="p-8 bg-white dark:bg-slate-900 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-          <div class="text-5xl mb-4">🤖</div>
-          <h3 class="text-2xl font-bold mb-3 text-slate-900 dark:text-slate-50">Claude</h3>
-          <p class="text-slate-600 dark:text-slate-300 mb-4">
-            Claude AI를 열심히 공부하며 활용법을 익히고 있습니다.
+        <!-- 메타 정보 -->
+        <dl class="reveal mt-20 grid grid-cols-1 sm:grid-cols-3 border-t border-line">
+          <div class="py-5 sm:pr-6 border-b sm:border-b-0 border-line">
+            <dt class="meta-label">전공</dt>
+            <dd class="mt-1.5">데이터테크놀로지</dd>
+          </div>
+          <div class="py-5 sm:px-6 border-b sm:border-b-0 sm:border-l border-line">
+            <dt class="meta-label">현재</dt>
+            <dd class="mt-1.5">대학생</dd>
+          </div>
+          <div class="py-5 sm:pl-6 sm:border-l border-line">
+            <dt class="meta-label">관심사</dt>
+            <dd class="mt-1.5">웹 개발 · AI · 데이터</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="section-inner">
+        <header class="section-head reveal">
+          <span class="section-num">01</span>
+          <h2 class="section-title">소개</h2>
+        </header>
+
+        <div class="md:col-span-8 reveal">
+          <p class="text-2xl sm:text-[1.75rem] font-medium leading-snug tracking-tight mb-10">
+            안녕하세요! 저는 기술과 데이터에 매력을 느껴
+            <span class="text-muted">데이터테크놀로지를 공부하고 있는 대학생입니다.</span>
           </p>
-          <div class="flex gap-2 flex-wrap">
-            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">학습 중</span>
+          <div class="grid sm:grid-cols-2 gap-8 text-muted leading-relaxed">
+            <p>
+              최근에는 Claude AI와 프로그래밍에 깊은 관심을 가지고 열심히 학습 중입니다.
+              새로운 기술을 배우고 실제 프로젝트에 적용하는 과정을 즐깁니다.
+            </p>
+            <p>
+              웹 개발부터 데이터 분석까지 다양한 분야에서 성장하고 있습니다.
+            </p>
+          </div>
+
+          <dl class="mt-14 border-t border-line text-[15px]">
+            <div class="info-row"><dt class="meta-label">이름</dt><dd>방기환</dd></div>
+            <div class="info-row"><dt class="meta-label">직업</dt><dd>대학생</dd></div>
+            <div class="info-row"><dt class="meta-label">주요 관심사</dt><dd>웹 개발, AI, 데이터</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="section-inner">
+        <header class="section-head reveal">
+          <span class="section-num">02</span>
+          <h2 class="section-title">기술 스택</h2>
+        </header>
+
+        <ul class="md:col-span-8 border-t border-line reveal">
+          <li class="skill-row">
+            <h3 class="text-2xl font-semibold tracking-tight">Python</h3>
+            <p class="text-muted">데이터 분석과 자동화에 활용하는 언어입니다.</p>
+            <span class="tag">학습 중</span>
+          </li>
+          <li class="skill-row">
+            <h3 class="text-2xl font-semibold tracking-tight">Claude</h3>
+            <p class="text-muted">Claude AI를 열심히 공부하며 활용법을 익히고 있습니다.</p>
+            <span class="tag">학습 중</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <div class="section-inner">
+        <header class="section-head reveal">
+          <span class="section-num">03</span>
+          <h2 class="section-title">프로젝트</h2>
+        </header>
+
+        <div id="projectsContainer" class="md:col-span-8 border-t border-line reveal">
+          <!-- 프로젝트는 script.js에서 동적으로 렌더링됩니다 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="section-inner">
+        <header class="section-head reveal">
+          <span class="section-num">04</span>
+          <h2 class="section-title">연락처</h2>
+        </header>
+
+        <div class="md:col-span-8 reveal">
+          <p class="text-muted text-lg mb-6">언제든지 편하게 연락해주세요!</p>
+          <a href="mailto:kaybang0313@gmail.com" class="contact-mail">
+            kaybang0313@gmail.com
+            <svg class="w-[0.7em] h-[0.7em] shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+
+          <div class="mt-14 border-t border-line">
+            <a href="https://github.com/kaybang0313-ctrl" target="_blank" rel="noopener noreferrer" class="link-row">
+              <span class="meta-label">GitHub</span>
+              <span class="flex-1">kaybang0313-ctrl</span>
+              <svg class="row-arrow" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+            <a href="mailto:kaybang0313@gmail.com" class="link-row">
+              <span class="meta-label">Email</span>
+              <span class="flex-1">kaybang0313@gmail.com</span>
+              <svg class="row-arrow" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-20 px-4 bg-white dark:bg-slate-900">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-center">프로젝트</h2>
-
-      <div id="projectsContainer" class="grid md:grid-cols-2 gap-8">
-        <!-- 프로젝트는 script.js에서 동적으로 렌더링됩니다 -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 px-4 bg-slate-50 dark:bg-slate-800">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-12">연락처</h2>
-
-      <p class="text-lg text-slate-600 dark:text-slate-300 mb-12">
-        언제든지 편하게 연락해주세요!
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-6 justify-center">
-        <a href="mailto:kaybang0313@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-900 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-slate-200 dark:border-slate-700">
-          <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-          </svg>
-          <div class="text-left">
-            <div class="text-sm font-semibold text-slate-500 dark:text-slate-400">이메일</div>
-            <div class="text-lg font-semibold text-slate-900 dark:text-slate-50">kaybang0313@gmail.com</div>
-          </div>
-        </a>
-
-        <a href="https://github.com/kaybang0313-ctrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-900 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-slate-200 dark:border-slate-700">
-          <svg class="w-6 h-6 text-slate-900 dark:text-slate-50" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.543 2.914 1.187.092-.923.35-1.543.636-1.898-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.272.098-2.65 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0110 4.844c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.378.203 2.397.1 2.65.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.137 18.19 20 14.436 20 10.017 20 4.484 15.522 0 10 0z" clip-rule="evenodd"/>
-          </svg>
-          <div class="text-left">
-            <div class="text-sm font-semibold text-slate-500 dark:text-slate-400">GitHub</div>
-            <div class="text-lg font-semibold text-slate-900 dark:text-slate-50">kaybang0313-ctrl</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="bg-slate-900 dark:bg-slate-950 text-slate-400 py-8 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="mb-2">© 2024 방기환 · 모든 권리 보유</p>
-      <p class="text-sm text-slate-500">Made with HTML, CSS & JavaScript</p>
+  <footer class="border-t border-line px-5 sm:px-8">
+    <div class="max-w-6xl mx-auto py-8 flex flex-col sm:flex-row gap-3 justify-between font-mono text-xs text-muted">
+      <p>© <span id="year">2026</span> 방기환</p>
+      <p>Made with HTML, CSS &amp; JavaScript</p>
+      <a href="#home" class="hover:text-ink transition-colors">맨 위로 ↑</a>
     </div>
   </footer>
 
